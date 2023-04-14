@@ -1,0 +1,42 @@
+<apex:page controller="eventSpeakerController">
+    <apex:form style="border:2px solid black">
+        <apex:pageBlock >
+            <!-- Event Name & Organizer Name Section -->
+            <div align="center" style="border:1px solid black;margin:15px;font-size:16px;background-color:rgb(144, 252, 214)">
+                <br/><br/>
+                <span>{!event.Name__c}</span><br/><br/>
+                <span><apex:outputLabel value="Organized By : "/>{!event.Organizer__r.Name}</span><br/><br/><br/>
+            </div>
+
+            <!-- Loaction & Start Time Section -->
+            <div style="margin:15px;font-size:16px">
+                <apex:outputLabel value="Location : "/>{!event.Locations__r.Name} <br/>
+                <apex:outputLabel value="Start Date and Time : "/>{!event.Start_Date_Time__c}<br/>
+            </div>
+
+            <!-- Speaker Section -->
+            <div style="border:1px solid black;margin:15px;padding:15px;font-size:16px;background-color:rgb(255, 214, 223)">
+                <apex:outputLabel value="Speakers"/>
+            </div>
+
+            <!-- Event Speaker,Profile Url and About Section -->
+            <div style="display:flex">
+                <apex:repeat value="{!eventspeaker}" var="spkr">
+                    <div style="margin:15px;padding:15px;border:1px solid rgb(155, 144, 144);width:33%;background-color:rgb(255, 204, 153);color:darkblue">
+                        <span style="font-size:16px">{!spkr.Speaker__r.Name}</span><br/><br/><br/>
+                        <span><apex:outputLink value="{!spkr.Speaker__r.Profile_URL__c}">{!spkr.Speaker__r.Profile_URL__c}</apex:outputLink></span><br/>
+                        <span><apex:outputText escape="false" value="{!spkr.Speaker__r.About_Me__c}"/></span><br/><br/>
+                    </div>
+                </apex:repeat>
+            </div>
+
+            <!-- Buttons Section -->
+            <div align="center" draggable="false">
+                <apex:commandButton value="Add Attendee" action="{!saveAsAttendee}" style="margin: 15px;font-size:14px;border:1px solid olive;color:brown"/>
+                <apex:commandButton value="Add Speaker" action="{!saveAsSpeaker}" style="margin: 15px;font-size:14px;border:1px solid olive;color:brown"/>
+
+            </div>
+
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
